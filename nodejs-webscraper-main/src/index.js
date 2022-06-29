@@ -10,6 +10,7 @@ app.use(cors())
 var fs = require('fs');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+app.set('views', "./nodejs-webscraper-main" + '/views');
 
 
 let urlNavrat = 'https://www.navratdoreality.cz/'
