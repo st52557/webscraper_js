@@ -1,4 +1,3 @@
-const PORT = 8000
 const axios = require('axios')
 const cheerio = require('cheerio')
 const Browser = require('zombie');
@@ -107,6 +106,6 @@ app.get('/navrat', async (req, res) => {
 
 })
 
-
-app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
-
+app.listen(process.env.PORT || 8000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
