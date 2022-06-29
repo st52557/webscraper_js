@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+
+<div class="home-index" style="text-align: center">
+
+
+    <div style="text-align: center">
+        <span id="home"><a href="/"></a></span>
+
+        <span id="navrat"><a href="/navrat"></a></span>
+
+        <span id="dira"><a href="/dira"></a></span>
+    </div>
+
+    <hr/>
+    <h2>Index response</h2>
+
+    <p>Loading times can be long, be patient.</p>
+</div>
+
+
+</body>
+</html>
+
+<style>
+
+
+    body {
+        background-color: #282828;
+        color: rgba(211, 209, 209, 0.53);
+    }
+
+    .buttons {
+        margin: 20px;
+        padding: 10px;
+    }
+
+    .my-btn {
+        margin-left: 50px;
+        padding: 20px;
+        color: white;
+        background-color: navy;
+    }
+
+    .home-index {
+        padding: 20px;
+    }
+
+
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+    span {
+        position: relative;
+        display: inline-flex;
+        width: 180px;
+        height: 55px;
+        margin: 0 15px;
+        perspective: 1000px;
+    }
+
+    span a {
+        font-size: 19px;
+        letter-spacing: 1px;
+        transform-style: preserve-3d;
+        transform: translateZ(-25px);
+        transition: transform .25s;
+        font-family: 'Montserrat', sans-serif;
+
+    }
+
+    span#navrat a:before,
+    span#navrat a:after {
+        position: absolute;
+        content: "DO REALITY";
+        color: WHITE;
+        background-color: red;
+        height: 55px;
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    span#navrat a:before {
+        content: "NAVRAT";
+        color: #fff;
+        background: #313131;
+        transform: rotateY(0deg) translateZ(25px);
+    }
+
+    span#home a:before,
+    span#home a:after {
+        position: absolute;
+        content: "JE MU HODNE";
+        background-color: blue;
+        height: 55px;
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    span#home a:before {
+        content: "INDEX";
+        color: #fff;
+        background: #313131;
+        transform: rotateY(0deg) translateZ(25px);
+    }
+
+    span#dira a:before,
+    span#dira a:after {
+        position: absolute;
+        content: "DIRI";
+        background-color: red;
+        height: 55px;
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    span#dira a:before {
+        content: "DO";
+        color: #fff;
+        background: #313131;
+        transform: rotateY(0deg) translateZ(25px);
+    }
+
+
+
+    span a:after {
+        color: #000;
+        transform: rotateX(90deg) translateZ(25px);
+    }
+
+    span a:hover {
+        transform: translateZ(-25px) rotateX(-90deg);
+    }
+
+
+</style>

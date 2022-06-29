@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navrat response</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="home-index">
+
+
+    <div style="text-align: center">
+        <span id="home"><a href="/"></a></span>
+
+        <span id="navrat"><a href="/navrat"></a></span>
+
+        <span id="dira"><a href="/dira"></a></span>
+    </div>
+
+    <hr/>
+
+</div>
+
+<h2 style="padding-left: 50px">Navrat response</h2>
+<div class="container-fluid" style="padding-left: 50px">
+    <div class="row">
+        <div class="col-sm-5" style="max-width: 420px">
+            <span>Use <strong>/navrat?load=xxx</strong>  for loading xxx pages.</span><br>
+            <span>Use <strong>/navrat?rating=xxx</strong>  for highlighting minimum xxx ratings.</span><br><br>
+            <span>Example: <strong>/navrat?load=10&rating=6</strong></span>
+        </div>
+        <div class="col-sm-2" style="max-width: 180px">
+            <span>Default load - 3 pages.</span><br>
+            <span>Default highlight - 7+.</span>
+        </div>
+        <div class="col-sm-5">
+            <span>valid: 1-20</span><br>
+            <span>valid: 1-10</span>
+        </div>
+    </div>
+</div>
+
+<div class="items">
+    <% for (var i = 0; i < items.length; i++) { %>
+    <div class="item">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-5" style="width: 400px">
+                    <a class="item-img" href="<%= items[i].url %>">
+                        <img src="<%= items[i].img %>" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-2">
+                    <span class="item-rating"><%= items[i].rating %></span><br>
+                    <span class="item-date"><%= items[i].date %></span>
+                </div>
+                <div class="col-sm-5">
+                    <span class="item-title"><%= items[i].title %></span><br>
+                    <span class="item-info"><%= items[i].info %></span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <% } %>
+</div>
+
+<span id="minRatingSpan" style="visibility: hidden"><%= minRating %></span>
+
+
+</body>
+</html>
+<style>
+
+    body {
+        background-color: #282828;
+        color: rgba(211, 209, 209, 0.53);
+    }
+
+    .items {
+        padding: 50px;
+        max-width: 1400px;
+        min-width: 570px;
+    }
+
+    .item {
+        border: grey 2px solid;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .item-rating {
+        font-size: 3em;
+        font-weight: bold;
+
+    }
+
+    .item-title {
+        font-size: 2em;
+        font-weight: 400;
+        text-align: left;
+    }
+
+    .item-date {
+        font-size: 1em;
+        font-weight: 400;
+        text-align: left;
+    }
+
+    .item-info {
+    }
+
+
+    .rating-green {
+        color: darkgreen
+    }
+
+
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+    .home-index span {
+        position: relative;
+        display: inline-flex;
+        width: 180px;
+        height: 55px;
+        margin: 0 15px;
+        perspective: 1000px;
+    }
+
+    .home-index span a {
+        font-size: 19px;
+        letter-spacing: 1px;
+        transform-style: preserve-3d;
+        transform: translateZ(-25px);
+        transition: transform .25s;
+        font-family: 'Montserrat', sans-serif;
+
+    }
+
+    span#navrat a:before,
+    span#navrat a:after {
+        position: absolute;
+        content: "DO REALITY";
+        color: WHITE;
+        background-color: red;
+        height: 55px;
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    span#navrat a:before {
+        content: "NAVRAT";
+        color: #fff;
+        background: #313131;
+        transform: rotateY(0deg) translateZ(25px);
+    }
+
+    span#home a:before,
+    span#home a:after {
+        position: absolute;
+        content: "JE MU HODNE";
+        background-color: blue;
+        height: 55px;
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    span#home a:before {
+        content: "INDEX";
+        color: #fff;
+        background: #313131;
+        transform: rotateY(0deg) translateZ(25px);
+    }
+
+    span#dira a:before,
+    span#dira a:after {
+        position: absolute;
+        content: "DIRI";
+        background-color: red;
+        height: 55px;
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid black;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    span#dira a:before {
+        content: "DO";
+        color: #fff;
+        background: #313131;
+        transform: rotateY(0deg) translateZ(25px);
+    }
+
+
+    .home-index span a:after {
+        color: #000;
+        transform: rotateX(90deg) translateZ(25px);
+    }
+
+    .home-index span a:hover {
+        transform: translateZ(-25px) rotateX(-90deg);
+    }
+
+    .home-index {
+        padding: 20px;
+    }
+
+</style>
+<script>
+
+    let minRating = $('#minRatingSpan').text();
+
+    $("span.item-rating").filter(function () {
+        return parseInt($(this).text().slice(0, 1)) >= minRating;
+    }).addClass('rating-green');
+
+</script>
