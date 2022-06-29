@@ -28,7 +28,7 @@
 
 </div>
 
-<h2 style="padding-left: 50px"></i>Navrat response</h2>
+<h2 style="padding-left: 50px">Navrat response</h2>
 <div class="container-fluid" style="padding-left: 50px">
     <div class="row">
         <div class="col-sm-5" style="max-width: 420px">
@@ -66,7 +66,13 @@
                     <span class="item-date"><%= items[i].date %></span>
                 </div>
                 <div class="col-sm-5">
+
+                    <a class="item-img" href="<%= items[i].url %>"></a>
+
                     <span class="item-title"><%= items[i].title %></span><br>
+
+
+
                     <span class="item-info"><%= items[i].info %></span>
                 </div>
             </div>
@@ -243,7 +249,7 @@
     let minRating = $('#minRatingSpan').text();
 
     $("span.item-rating").filter(function () {
-        return parseInt($(this).text().slice(0, 1)) >= minRating;
+        return parseInt($(this).text().trim().slice(0, 1)) >= minRating;
     }).addClass('rating-green');
 
     $("span.item-title:contains('Page')").addClass('item-page').parent().parent().parent().parent().addClass('no-border');

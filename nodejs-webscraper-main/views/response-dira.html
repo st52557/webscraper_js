@@ -35,19 +35,52 @@
         <div class="col-sm-5" style="max-width: 420px">
             <span>Use <strong>/dira?load=xxx</strong>  for loading xxx pages.</span><br>
             <span>Use <strong>/dira?rating=xxx</strong>  for highlighting minimum xxx ratings.</span><br><br>
-            <span>Example: <strong>/dira?load=10&rating=6</strong></span>
+            <span>Example: <strong>/dira?load=10&rating=60</strong></span>
         </div>
         <div class="col-sm-2" style="max-width: 180px">
             <span>Default load - 3 pages.</span><br>
-            <span>Default highlight - 7+.</span>
+            <span>Default rating - 30+.</span>
         </div>
         <div class="col-sm-5">
             <span>valid: 1-20</span><br>
-            <span>valid: 1-10</span>
+            <span>valid: 1-100</span>
         </div>
     </div>
+    <br>
+    <p>Loaded: <%= items.length %> items</p>
+    <br>
 </div>
 
+<div class="items">
+    <% for (var i = 0; i < items.length; i++) { %>
+    <div class="item">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-5" style="width: 400px">
+                    <a class="item-img" href="<%= items[i].url %>">
+                        <img src="<%= items[i].img %>" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-2">
+                    <span class="item-rating"><%= items[i].rating %></span>
+                    <% if(items[i].rating){ %><span style="font-size: 12px"> votes</span><% } %>
+                    <br>
+                    <span class="item-date"><%= items[i].date %></span>
+                </div>
+                <div class="col-sm-5">
+                    <span class="item-title"><%= items[i].title %></span><br>
+                    <span class="item-info"><%= items[i].info %></span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <% } %>
+</div>
+
+<span id="minRatingSpan" style="visibility: visible"><%= minRating %></span>
 
 </body>
 </html>
@@ -198,13 +231,23 @@
         padding: 20px;
     }
 
+    .item-page{
+        color: white;
+    }
+
+    .no-border{
+        border: none!important;
+    }
+
 </style>
 <script>
 
-    // let minRating = $('#minRatingSpan').text();
-    //
-    // $("span.item-rating").filter(function () {
-    //     return parseInt($(this).text().slice(0, 1)) >= minRating;
-    // }).addClass('rating-green');
+    let minRating = $('#minRatingSpan').text();
+
+    $("span.item-rating").filter(function () {
+        return parseInt($(this).text()) >= minRating;
+    }).addClass('rating-green');
+
+    $("span.item-title:contains('Page')").addClass('item-page').parent().parent().parent().parent().addClass('no-border');
 
 </script>

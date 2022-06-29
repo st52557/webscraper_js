@@ -27,10 +27,6 @@ const apiRequestLimiter = rateLimit({
 // Use the limit rule as an application middleware
 app.use(apiRequestLimiter)
 
-let urlNavrat = 'https://www.navratdoreality.cz/'
-let urlNavratNumberOfPages = 3;
-let minRating = 7;
-let loadImages = 1;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 var jsonParser = bodyParser.json()
@@ -57,15 +53,100 @@ app.get('/', function (req, res) {
 })
 
 
-app.get('/dira', function (req, res) {
+app.get('/dira', async function (req, res) {
+
+    let urlDira = 'https://dodiri.cz/';
+
+    var mapDira = new Map();
+    let urlDiraNumberOfPages = 3;
+    let minRating = 30;
+    let loadImages = 1;
+    if (req.query.load) {
+        if (parseInt(req.query.load) >= 1 && parseInt(req.query.load) < 21)
+            urlDiraNumberOfPages = parseInt(req.query.load);
+    }
+
+    if (req.query.img) {
+        if (parseInt(req.query.img) === 0 || parseInt(req.query.img) === 1)
+            loadImages = parseInt(req.query.img);
+    }
+
+    if (req.query.rating) {
+        if (parseInt(req.query.rating) >= 1 && parseInt(req.query.rating) <= 100)
+            minRating = parseInt(req.query.rating);
+    }
+
+
+    let responseCount = 0;
+    for (let i = 1; i < urlDiraNumberOfPages + 1; i++) {
+        const articles = [];
+        urlDira = 'https://dodiri.cz/page/' + i + '/';
+        articles.push({
+            title: "Page: " + i + "    ",
+            url: ""
+        })
+        console.log(urlDira);
+        axios(urlDira)
+            .then(async response => {
+                let html = response.data
+                const $ = cheerio.load(html)
+
+                $('#primary .g1-collection-items .g1-collection-item', html).each(function () { //<-- cannot be a function expression
+                    const title = $(this).find('h3').text()
+                    const url = $(this).find('h3 a').attr('href')
+                    let img = "images off ";
+                    if (loadImages) {
+                        img = $(this).find('img').attr('src')
+                    }
+                    let rating = $(this).find('.snax-voting-score').text().trim()
+                    const date = $(this).find('.entry-date').text()
+                    const info = $(this).find('.entry-summary').text()
+                    rating = rating.replace("Hodnocení", "");
+                    rating = rating.trim();
+                    if (title || url) {
+                        articles.push({
+                            title,
+                            url,
+                            img,
+                            rating,
+                            date,
+                            info
+                        })
+                    }
+
+                })
+                console.log(i);
+                responseCount += 1;
+
+                mapDira.set(i, articles);
+
+            }).catch(err => console.log(err))
+    }
+
+    while (responseCount < urlDiraNumberOfPages) {
+        console.log("waiting");
+        await new Promise(r => setTimeout(r, 3000));
+    }
+    const mapAsc = new Map([...mapDira.entries()].sort((a, b) => parseInt(a) - parseInt(b)));
+
+    let items = Array.from(mapAsc.values());
+    items = items.flat(2);
+
+    console.log("send response");
 
     res.setHeader('Content-type', 'text/html');
-    res.render("response-dira.html", );
+    res.render("response-dira.html", {items: items, minRating: minRating});
+
 
 })
 
 
 app.get('/navrat', async (req, res) => {
+    let urlNavrat = 'https://www.navratdoreality.cz/'
+    let urlNavratNumberOfPages = 3;
+    let minRating = 7;
+    let loadImages = 1;
+
     var mapNavrat = new Map();
     urlNavratNumberOfPages = 3;
     minRating = 7;
