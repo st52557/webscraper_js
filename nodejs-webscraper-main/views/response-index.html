@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link rel="icon" href="../src/public/favicon.ico">
+    <link rel="icon" href="favicon.ico?1.6">
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
     <hr/>
     <h2>Index response</h2>
 
-    <p>Loading times can be long, be patient. -Gigantosaurus</p>
+    <p>Loading (and taming) can take long time, be patient. -Quetzal</p>
 
     <form class="form-inline" method="post" action="/auth">
         <div class="form-group mx-sm-3 mb-2">
@@ -51,11 +51,20 @@
 
 <!--https://www.noviny.sk/krimi/420259-ludska-udiaren-na-slovensku-muz-nevidel-denne-svetlo-niekolko-mesiacov-->
 
+<div class="caproMove" style="margin-top: -50px">
+    <img class="Kapro" src="kapro.png" alt="Kapro">
+</div>
+
+<div class="follower" style="left: -1000px">
+    <img src="croc-right.gif" alt="croc-right">
+</div>
+
+
 <footer>
     <div id="footer">
         <div className="container text-center">
             <div className="col-md-12">
-                <p>&copy; 2022 Created by KapročuchusGang </p><br>
+                <p>&copy; 2022 Created by KapročuchusGang </p>
                 <p>personal use only</p>
             </div>
             <div className="col-md-6">
@@ -75,6 +84,40 @@
         color: rgba(211, 209, 209, 0.53);
     }
 
+    html, body {
+        margin: 0; height: 100%;
+        overflow: hidden;
+        cursor: url("cursor_human.cur"), default!important;
+    }
+
+
+    @-webkit-keyframes Kapro {
+        from {
+            left: -1000px;
+        }
+        50% {
+            left: 100%;
+        }
+        to {
+            left: -1000px;
+        }
+    }
+
+    .Kapro {
+;
+        position: absolute;
+        -webkit-animation: Kapro 50s linear infinite;
+        -moz-animation: Kapro 50s linear infinite;
+        -ms-animation: Kapro 50s linear infinite;
+        -o-animation: Kapro 50s linear infinite;
+    }
+
+    img {
+        height: 70%;
+        width: 70%;
+        opacity: 0.6;
+    }
+
     #footer {
         padding: 40px 0 20px 0;
         position: fixed;
@@ -86,7 +129,7 @@
     }
     #footer p {
         font-size: 14px;
-        color: #666;
+        color: #c2c2c2;
     }
 
 
@@ -193,5 +236,65 @@
         transform: translateZ(-25px) rotateX(-90deg);
     }
 
+    .follower {
+
+
+        border-radius: 10px;
+        transition-duration: 10000ms;
+        position: fixed;
+
+        height: 20%;
+        width: 20%;
+
+        transform: translate(-60%, -40%);
+    }
 
 </style>
+
+<script>
+    $(document).on('mousemove', (event) => {
+        $('.follower').css({
+            left: event.clientX,
+            top: event.clientY,
+        });
+    });
+
+
+
+    var mouseXY = {};
+    $( document ).on( "mousemove", function( event ) {
+        mouseXY.X = event.pageX;
+        mouseXY.Y = event.pageY;
+    });
+    var iCow = $("");
+    var prevXY = {X: null, Y: null};
+    var cowInterval = setInterval(function()
+    {
+
+
+        if(prevXY.Y !== mouseXY.Y || prevXY.X !== mouseXY.X && (prevXY.Y != null || prevXY.X != null)) {
+
+            var cowXY = iCow.position();
+            var diffX = cowXY.left - mouseXY.X;
+            var diffY = cowXY.top - mouseXY.Y;
+            var tan = diffY / diffX;
+
+            var atan = Math.atan(tan)* 180 / Math.PI;;
+            if(diffY > 0 && diffX > 0) {
+
+                atan += 180;
+            }
+            else if(diffY < 0 && diffX > 0) {
+
+                atan -= 180;
+            }
+
+            prevXY.X = mouseXY.X;
+            prevXY.Y = mouseXY.Y;
+            iCow.css({transform: "rotate(" + atan + "deg)"});
+        }
+    }, 10);
+
+
+
+</script>
