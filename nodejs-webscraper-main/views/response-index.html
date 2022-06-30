@@ -55,7 +55,7 @@
     <img class="Kapro" src="kapro.png" alt="Kapro">
 </div>
 
-<div class="follower" style="left: -1000px">
+<div class="follower" style="left: -2000px">
     <img src="croc-right.gif" alt="croc-right">
 </div>
 
@@ -87,7 +87,7 @@
     html, body {
         margin: 0; height: 100%;
         overflow: hidden;
-        cursor: url("cursor_human.cur"), default!important;
+        cursor: url("cursor_human.cur"), default;
     }
 
 
@@ -113,8 +113,8 @@
     }
 
     img {
-        height: 70%;
-        width: 70%;
+        height: 77%;
+        width: auto;
         opacity: 0.6;
     }
 
@@ -249,6 +249,11 @@
         transform: translate(-60%, -40%);
     }
 
+    .no-cursor{
+        cursor: url("cursor-hurt.cur"), default;
+
+    }
+
 </style>
 
 <script>
@@ -259,41 +264,49 @@
         });
     });
 
-
-
-    var mouseXY = {};
-    $( document ).on( "mousemove", function( event ) {
-        mouseXY.X = event.pageX;
-        mouseXY.Y = event.pageY;
+    $( ".follower" ).mouseover(function() {
+        $( "html" ).addClass("no-cursor");
+        $( "body" ).addClass("no-cursor");
+        console.log("ouseover croc");
     });
-    var iCow = $("");
-    var prevXY = {X: null, Y: null};
-    var cowInterval = setInterval(function()
-    {
 
 
-        if(prevXY.Y !== mouseXY.Y || prevXY.X !== mouseXY.X && (prevXY.Y != null || prevXY.X != null)) {
 
-            var cowXY = iCow.position();
-            var diffX = cowXY.left - mouseXY.X;
-            var diffY = cowXY.top - mouseXY.Y;
-            var tan = diffY / diffX;
 
-            var atan = Math.atan(tan)* 180 / Math.PI;;
-            if(diffY > 0 && diffX > 0) {
 
-                atan += 180;
-            }
-            else if(diffY < 0 && diffX > 0) {
-
-                atan -= 180;
-            }
-
-            prevXY.X = mouseXY.X;
-            prevXY.Y = mouseXY.Y;
-            iCow.css({transform: "rotate(" + atan + "deg)"});
-        }
-    }, 10);
+    // var mouseXY = {};
+    // $( document ).on( "mousemove", function( event ) {
+    //     mouseXY.X = event.pageX;
+    //     mouseXY.Y = event.pageY;
+    // });
+    // var iCow = $("");
+    // var prevXY = {X: null, Y: null};
+    // var cowInterval = setInterval(function()
+    // {
+    //
+    //
+    //     if(prevXY.Y !== mouseXY.Y || prevXY.X !== mouseXY.X && (prevXY.Y != null || prevXY.X != null)) {
+    //
+    //         var cowXY = iCow.position();
+    //         var diffX = cowXY.left - mouseXY.X;
+    //         var diffY = cowXY.top - mouseXY.Y;
+    //         var tan = diffY / diffX;
+    //
+    //         var atan = Math.atan(tan)* 180 / Math.PI;;
+    //         if(diffY > 0 && diffX > 0) {
+    //
+    //             atan += 180;
+    //         }
+    //         else if(diffY < 0 && diffX > 0) {
+    //
+    //             atan -= 180;
+    //         }
+    //
+    //         prevXY.X = mouseXY.X;
+    //         prevXY.Y = mouseXY.Y;
+    //         iCow.css({transform: "rotate(" + atan + "deg)"});
+    //     }
+    // }, 10);
 
 
 
