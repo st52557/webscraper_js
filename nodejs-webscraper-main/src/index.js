@@ -56,6 +56,16 @@ app.get('/', function (req, res) {
         console.log(req.body.pass);
     }
     res.setHeader('Content-type', 'text/html');
+    res.render("response-timer.html", );
+
+})
+
+app.get('/index', function (req, res) {
+
+    if(req.body){
+        console.log(req.body.pass);
+    }
+    res.setHeader('Content-type', 'text/html');
     res.render("response-index.html", );
 
 })
