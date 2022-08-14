@@ -13,11 +13,13 @@
     "body-parser": "^1.20.0",
     "cheerio": "^1.0.0-rc.10",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.17.1",
     "express-rate-limit": "^6.4.0",
     "ioredis": "^5.1.0",
     "nodemon": "^2.0.7",
+    "pg": "^8.7.3",
     "serve-favicon": "^2.5.0",
     "zombie": "^6.1.4"
   }

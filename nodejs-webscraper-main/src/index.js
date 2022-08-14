@@ -20,6 +20,8 @@ app.use("/public", express.static('public'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(__dirname+'/public'));
 
+const { pool } = require('./config')
+
 const apiRequestLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
     max: 10, // limit each IP to 10 requests per windowMs
@@ -37,6 +39,34 @@ app.use(apiRequestLimiter)
 app.use(bodyParser.urlencoded({ extended: true }));
 var jsonParser = bodyParser.json()
 
+
+const getComments = (request, response) => {
+    pool.query('SELECT * FROM comments', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const addComment = (request, response) => {
+    const { username, text } = request.body
+console.log(request.body);
+    pool.query(
+        'INSERT INTO comments (username, text) VALUES ($1, $2)',
+        [username, text],
+        (error) => {
+            if (error) {
+                throw error
+            }
+            response.status(201).json({ status: 'success', message: 'Commnent added.' })
+        }
+    )
+}
+
+
+
+
 app.post('/auth', jsonParser, function (req, res) {
     console.log(req.body);
     if(req.body){
@@ -44,7 +74,7 @@ app.post('/auth', jsonParser, function (req, res) {
     }
     res.setHeader('Content-type', 'text/html');
     res.render("response-index.html", );
-})
+}).post(addComment(req.body))
 
 
 
@@ -58,7 +88,7 @@ app.get('/', function (req, res) {
     res.setHeader('Content-type', 'text/html');
     res.render("response-timer.html", );
 
-})
+}).get(getComments);
 
 app.get('/index', function (req, res) {
 
