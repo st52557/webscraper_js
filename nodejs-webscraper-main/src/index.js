@@ -20,7 +20,7 @@ app.use("/public", express.static('public'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(__dirname+'/public'));
 
-const { pool } = require('./config')
+const { pool } = require('./configg')
 
 const apiRequestLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
@@ -41,6 +41,7 @@ var jsonParser = bodyParser.json()
 
 
 const getComments = (request, response) => {
+    console.log("GET COMMMENTS");
     pool.query('SELECT * FROM comments', (error, results) => {
         if (error) {
             throw error
@@ -51,7 +52,7 @@ const getComments = (request, response) => {
 
 const addComment = (request, response) => {
     const { username, text } = request.body
-console.log(request.body);
+    console.log("ADD COMMMENTS");
     pool.query(
         'INSERT INTO comments (username, text) VALUES ($1, $2)',
         [username, text],
@@ -65,30 +66,32 @@ console.log(request.body);
 }
 
 
+app.post('/auth', addComment);
 
 
-app.post('/auth', jsonParser, function (req, res) {
-    console.log(req.body);
-    if(req.body){
-        console.log(req.body.pass);
-    }
-    res.setHeader('Content-type', 'text/html');
-    res.render("response-index.html", );
-}).post(addComment(req.body))
 
+// app.post('/auth', jsonParser, function (req, res) {
+//     console.log(req.body);
+//     if(req.body){
+//         console.log(req.body.pass);
+//     }
+//     res.setHeader('Content-type', 'text/html');
+//     res.render("response-index.html", );
+// }).post(addComment(req?.body))
+//
 
 
 app.get('/', function (req, res) {
 
-    console.log(__dirname+'/public');
+    let response = getComments();
 
     if(req.body){
         console.log(req.body.pass);
     }
     res.setHeader('Content-type', 'text/html');
-    res.render("response-timer.html", );
+    res.render("response-timer.html", {comments: response});
 
-}).get(getComments);
+});
 
 app.get('/index', function (req, res) {
 
