@@ -38,9 +38,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var jsonParser = bodyParser.json()
 
 app.post('/auth', jsonParser, function (req, res) {
-    console.log(req.body);
-    if(req.body){
-        console.log(req.body.pass);
+    if(req.body.password){
+        console.log(req.body);
     }
     res.setHeader('Content-type', 'text/html');
     res.render("response-index.html", );
@@ -122,6 +121,7 @@ app.get('/dira', async function (req, res) {
                     rating = rating.replace("Hodnocení", "");
                     rating = rating.trim();
                     if (title || url) {
+
                         articles.push({
                             title,
                             url,
@@ -224,7 +224,7 @@ app.get('/navrat', async (req, res) => {
                     }
 
                 })
-                console.log(i);
+                console.log(i, articles);
                 responseCount += 1;
 
                 mapNavrat.set(i, articles);
